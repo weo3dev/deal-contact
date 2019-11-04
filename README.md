@@ -6,7 +6,7 @@
 - [What This Does](#what-this-does)
 - [Tools Used](#tools-used)
 - [Project Niceties](#project-niceties)
-- [Thoughts, Assumptions, Miscellaneous Notes](#thoughts,-assumptions,-miscellaneous-notes)
+- [Thoughts, Assumptions, Miscellaneous Notes](#thoughts)
 
 ## Requirements
 - PHP
@@ -51,7 +51,7 @@ Once the above steps have been taken you can run `phpunit` for tests and `php -S
 - JavaScript used for form submission and success/error communication to user for smoother visual experience
 - horizontal layout for larger screens (simple vertical layout for all smaller screens) 
 
-## Thoughts, Assumptions, Miscellaneous Notes
+## Thoughts
 - [Assumption] - Most humans are dumb (myself included) and can quite easily break forms without validation(s) in place
 - [Assumption] - Some humans are script kiddies and try to break forms purposefully. May they fail in their attempts.
 - [Thought] - I believe this is a good form. I do not believe it is a perfect form.
