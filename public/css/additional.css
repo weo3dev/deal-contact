@@ -1,0 +1,28 @@
+/* messaging div initial view */
+#contact-messages {
+    transition: 0.25s;
+    height: 0;
+    opacity: 0;
+}
+
+    #contact-messages.active-message {
+        height: auto;
+        opacity: 1;
+    }
+
+/* error messaging list alignment */
+.error-messages {
+    padding-left: 1em;
+}
+
+/* form-group spacing */
+.form-group + .form-group {
+    margin-top: 3rem;
+}
+
+/* textarea/submit button spacing */
+#contact textarea {
+    margin-bottom: 2rem;
+}
+
+
