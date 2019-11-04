@@ -2,26 +2,30 @@ $(function() {
 
     function formSubmitted(data) {
 
-        let _data = JSON.parse(data);
+        try { 
+           
+            let _data = JSON.parse(data);
 
-        // no json received; more than likely mail/server error
-        if(_data === '') {
+        } catch (e) {
 
-            $('#contact-messages').empty();
-            $('#contact-messages').addClass('active-message alert-warning');
-            // for dev work
-            //$('#contact-messages').html(_data);
-
-            // below is public messaging to users
-            // ideally this would toggle off/on based on 
-            // self-management by observing global var
-            // determining whether in dev or prod env
-
-            $('#contact-messages').html('<strong>We apologize for the inconvenience, but our system is down at the moment.<br><br>Please try again later.</strong>');
-
-            $('#contact-messages').show();
-            setButtonOriginalState();
-            return;
+            if(e instanceof SyntaxError) {
+                // bow out
+                $('#contact-messages').empty();
+                $('#contact-messages').addClass('active-message alert-warning');
+                // for dev work
+                //$('#contact-messages').html(_data);
+    
+                // below is public messaging to users
+                // ideally this would toggle off/on based on 
+                // self-management by observing global var
+                // determining whether in dev or prod env
+    
+                $('#contact-messages').html('<strong>We apologize for the inconvenience, but our system is down at the moment.<br><br>Please try again later.</strong>');
+    
+                $('#contact-messages').show();
+                setButtonOriginalState();
+                return;
+            }
         }
 
         // success! show confirm message

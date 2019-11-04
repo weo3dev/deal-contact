@@ -60,8 +60,8 @@ class FormSend {
 
         try {
 
-            $this->mailer->setFrom('contact@info.com', 'Mister Contact');
-            $this->mailer->addAddress('dev@weo3.com', 'William ONeal');
+            $this->mailer->setFrom('contact@info.com', 'Mister Contact Form');
+            $this->mailer->addAddress('guy-smiley@example.com', 'Guy Smiley');
             $this->mailer->Subject = 'Hello from '.$this->validData['name'].'!';
             $this->mailer->isHTML(true);
             $this->mailer->Body = $this->composeHTMLContent();

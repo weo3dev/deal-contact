@@ -6,14 +6,16 @@ require "../../vendor/autoload.php";
 
 use WEO3\DatabaseConnect;
 
-class FormSave {
+class FormSave
+{
 
     private static $instance = null;
     private $validData = [];
     private $dbConnect;
 
 
-    private function __construct($data) {
+    private function __construct($data)
+    {
 
         $this->dbConnect = new DatabaseConnect();
 
@@ -21,15 +23,18 @@ class FormSave {
         $this->saveContent();
     }
 
-    public static function getInstance($data) {
-        if(!self::$instance) {
+    public static function getInstance($data)
+    {
+        if(!self::$instance)
+        {
             self::$instance = new FormSave($data);
         }
 
         return self::$instance;
     }
 
-    private function saveContent() {
+    private function saveContent()
+    {
 
         $phoneHasData = (isset($this->validData['phone'])) ? $this->validData['phone'] : '';
 
@@ -49,14 +54,16 @@ class FormSave {
 
         $stmt = $this->dbConnect->dbc->prepare($sql);
         $stmt->execute();
-        if($stmt->affected_rows === 0) {
+        if($stmt->affected_rows === 0)
+        {
             // unable to save data
             echo json_encode([
                 'status'=>'error',
                 'message'=>'Unable to complete process at this time. Please try again later.'            	
             	]);
 
-        } else {
+        } else
+        {
             // return all good
             echo json_encode([
                 'status'=>'success',

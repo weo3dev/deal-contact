@@ -12,7 +12,8 @@ use WEO3\FormSave;
  * Validations must pass before data is sent to mail and database
  * 
  */
-class FormProcess {
+class FormProcess
+{
 
     private static $instance = null;
     private $name;
@@ -26,29 +27,34 @@ class FormProcess {
     private $errorMessages = [];
     private $validData = [];
 
-    private function __construct() {
+    private function __construct()
+    {
         
         // autostart processing data on instantiation
         $this->processData();
 
     }
 
-    public static function getInstance() {
-        if(!self::$instance) {
+    public static function getInstance()
+    {
+        if(!self::$instance)
+        {
             self::$instance = new FormProcess();
         }
 
         return self::$instance;
     }
 
-    private function processData() {
+    private function processData()
+    {
         
         // check it all
         $this->name = trim(htmlspecialchars($_POST['name']));
         $this->email = trim(htmlspecialchars($_POST['email']));
         if(isset($_POST['phone'])){
             $this->phone = trim(htmlspecialchars($_POST['phone']));
-        } else {
+        } else
+        {
             $this->phone = "";
         }
         $this->message = trim(htmlspecialchars($_POST['message']));
@@ -72,7 +78,8 @@ class FormProcess {
 
         $this->requireMessageLength();
 
-        if(count($this->errorMessages) > 0) {
+        if(count($this->errorMessages) > 0)
+        {
 
             // not passing validations
             // let user try again
@@ -82,7 +89,8 @@ class FormProcess {
             	'errors'=>$this->errorMessages
             	]);            
 
-        } else {
+        } else
+        {
 
             // package valid data into validData
             $this->validData['name'] = $this->name;
@@ -99,68 +107,88 @@ class FormProcess {
 
     }
 
-    private function requireName() {
-        if(empty($this->name)) {
+    private function requireName()
+    {
+        if(empty($this->name))
+        {
             $this->addError('Your name is required.');
         }
     }
     
-    private function validateName() {
-        if (!preg_match('/^[a-zA-Z0-9\s]+$/', $this->name)) {
+    private function validateName()
+    {
+        if (!preg_match('/^[a-zA-Z0-9\s]+$/', $this->name))
+        {
             $this->addError('Name can only contain letters, numbers and white spaces.');
         }
     }
 
-    private function requireEmail() {
-        if(empty($this->email)) {
+    private function requireEmail()
+    {
+        if(empty($this->email))
+        {
             $this->addError('Your email is required.');
         }
     }
 
-    private function validateEmail() {
-        if(!empty($this->email)) {
+    private function validateEmail()
+    {
+        if(!empty($this->email))
+        {
             if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
                 $this->addError('Please enter a valid email address.');                    
             }
         }
     }
 
-    private function validatePhone() {
+    private function validatePhone()
+    {
         // phone is optional, but if it's there, double check format
         // if(!empty($this->phone)) {
-        if(strlen($this->phone > 1)) {
-            if(!preg_match('/^\d{3}-\d{3}-\d{4}$/', $this->phone)) {
+        if(strlen($this->phone > 1))
+        {
+            if(!preg_match('/^\d{3}-\d{3}-\d{4}$/', $this->phone))
+            {
                 $this->addError('Please match phone number format with example format.');
             }
         }
     }
 
-    private function requireMessage() {
-        if(empty($this->message)) {
+    private function requireMessage()
+    {
+        if(empty($this->message))
+        {
             $this->addError('A message is required to send.');
         }
     }
 
-    private function requireMessageLength() {
-        if(!empty($this->message)) {
-            if(strlen($this->message) < 10) {
+    private function requireMessageLength()
+    {
+        if(!empty($this->message))
+        {
+            if(strlen($this->message) < 10)
+            {
                 $this->addError('Please make your message a little bit longer, in order to send.');
             }
         }
     }
 
-    private function addError($errorString) {
+    private function addError($errorString)
+    {
         array_push($this->errorMessages, $errorString);
     }
 
-    private function sendFormData() {
+    private function sendFormData()
+    {
         
         // uses FormSend to send mail
-        if($formSend = FormSend::getInstance($this->validData)) {
+        if($formSend = FormSend::getInstance($this->validData))
+        {
             // mail good (keep going and save data)
             $this->saveFormData();
 
-        } else {
+        } else
+        {
             // mail bad
             echo json_encode([
                 'status'=>'error',
@@ -170,11 +198,10 @@ class FormProcess {
 
     }
 
-    private function saveFormData() {
-        
+    private function saveFormData()
+    {
         // uses FormSave to save info to db
         $formSave = FormSave::getInstance($this->validData);
-
     }
 
 }
