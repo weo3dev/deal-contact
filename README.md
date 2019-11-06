@@ -55,4 +55,3 @@ Once the above steps have been taken you can run `phpunit` for tests and `php -S
 - [Assumption] - Most humans are dumb (myself included) and can quite easily break forms without validation(s) in place
 - [Assumption] - Some humans are script kiddies and try to break forms purposefully. May they fail in their attempts.
 - [Thought] - I believe this is a good form. I do not believe it is a perfect form.
-- [Notes] - PHPUnit is a tool I unfortunately have little experience with, but holy cow it is a very cool tool I would very much like to know much more fully, and use on a regular basis.
